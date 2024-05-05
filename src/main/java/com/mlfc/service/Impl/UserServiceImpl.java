@@ -13,22 +13,7 @@ import java.time.LocalDateTime;
 @Service
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserMapper userMapper;
 
-    @Override
-    public void register(User user) {
-        user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
-        user.setCreateTime(LocalDateTime.now());
-        user.setUpdateTime(LocalDateTime.now());
-        userMapper.register(user);
-    }
-
-    @Override
-    public User login(String username, String password) {
-        User user = userMapper.findByUsername(username);
-        return user;
-    }
 
 
 }
