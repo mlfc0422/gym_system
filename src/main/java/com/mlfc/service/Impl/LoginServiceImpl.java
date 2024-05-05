@@ -1,6 +1,8 @@
 package com.mlfc.service.Impl;
 
+import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
+import com.mlfc.mapper.RootMapper;
 import com.mlfc.mapper.UserMapper;
 import com.mlfc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +14,8 @@ import java.time.LocalDateTime;
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private RootMapper rootMapper;
 
     @Override
     public void userRegister(User user) {
@@ -22,8 +26,14 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public User userLogin(String username, String password) {
+    public User userLogin(String username) {
         User user = userMapper.findByUsername(username);
         return user;
+    }
+
+    @Override
+    public Root rootLogin(String username) {
+        Root root = rootMapper.findByUsername(username);
+        return root;
     }
 }

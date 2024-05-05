@@ -1,6 +1,7 @@
 package com.mlfc.controller;
 
 import com.mlfc.common.Rest;
+import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
 import com.mlfc.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,16 +20,16 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/userRegister")
-    public Rest<String> register(@RequestBody User user) {
+    public Rest<String> userRegister(@RequestBody User user) {
         loginService.userRegister(user);
         return Rest.success("注册成功");
     }
 
     @PostMapping("/userLogin")
-    public Rest<String> login(@RequestBody User user, HttpServletRequest request) {
+    public Rest<String> userLogin(@RequestBody User user, HttpServletRequest request) {
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
-        User user1 = loginService.userLogin(user.getUsername(), password);
+        User user1 = loginService.userLogin(user.getUsername());
         if (user1 == null) {
             return Rest.error("用户不存在");
         }else if (!user1.getPassword().equals(password)) {
@@ -40,8 +41,28 @@ public class LoginController {
     }
 
     @PostMapping("/userLogout")
-    public Rest<String> logout(HttpServletRequest request){
+    public Rest<String> userLogout(HttpServletRequest request){
         request.getSession().removeAttribute("user");
+        return Rest.success("登出成功");
+    }
+
+
+    @PostMapping("/rootLogin")
+    public Rest<String> rootLogin(@RequestBody Root root, HttpServletRequest request) {
+        Root root1 = loginService.rootLogin(root.getUsername());
+        if (root1 == null) {
+            return Rest.error("用户不存在");
+        }else if (!root1.getPassword().equals(root.getPassword())) {
+            return Rest.error("密码错误");
+        }
+        System.out.println(root1.getId());
+        request.getSession().setAttribute("root",root1.getId());
+        return Rest.success("登录成功");
+    }
+
+    @PostMapping("/rootLogout")
+    public Rest<String> rootLogout(HttpServletRequest request){
+        request.getSession().removeAttribute("root");
         return Rest.success("登出成功");
     }
 }
