@@ -35,4 +35,10 @@ public class UserController {
         request.getSession().setAttribute("user",user1.getId());
         return Rest.success("登录成功");
     }
+
+    @PostMapping("/logout")
+    public Rest<String> logout(HttpServletRequest request){
+        request.getSession().removeAttribute("user");
+        return Rest.success("登出成功");
+    }
 }
