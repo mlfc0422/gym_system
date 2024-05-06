@@ -5,6 +5,7 @@ import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
 import com.mlfc.service.LoginService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.DigestUtils;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+@Slf4j
 @RestController
 @RequestMapping
 public class LoginController {
@@ -21,6 +23,7 @@ public class LoginController {
 
     @PostMapping("/userRegister")
     public Rest<String> userRegister(@RequestBody User user) {
+        log.info("用户注册:{}",user);
         loginService.userRegister(user);
         return Rest.success("注册成功");
     }
