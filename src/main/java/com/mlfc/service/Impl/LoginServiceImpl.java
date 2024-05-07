@@ -1,5 +1,6 @@
 package com.mlfc.service.Impl;
 
+import com.mlfc.common.Rest;
 import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
 import com.mlfc.mapper.RootMapper;
@@ -22,6 +23,9 @@ public class LoginServiceImpl implements LoginService {
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
+        if (userMapper.findByUsername(user.getUsername()) != null) {
+            throw new RuntimeException("用户名已存在");
+        }
         userMapper.register(user);
     }
 
