@@ -4,6 +4,7 @@ import com.mlfc.entity.User;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 @Mapper
 public interface UserMapper {
@@ -13,4 +14,11 @@ public interface UserMapper {
 
     @Select("select * from user where username = #{username}")
     User findByUsername(String username);
+
+    @Update("update user set name = #{name}, phone = #{phone}, height = #{height}, weight = #{weight}, age = #{age}, update_time = #{updateTime} where username = #{username}")
+    void update(User user);
+
+    @Select("select * from user where id = #{id}")
+    User findById(int id);
+
 }
