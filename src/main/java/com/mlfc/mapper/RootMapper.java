@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface RootMapper {
-    @Select("select * from root where username = #{username}")
+    @Select("select id,username,password from root where username = #{username}")
     Root findByUsername(String username);
 }

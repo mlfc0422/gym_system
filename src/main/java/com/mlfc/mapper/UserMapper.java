@@ -12,13 +12,13 @@ public interface UserMapper {
     @Insert("insert into user (username, password, name, phone, height, weight, age, create_time, update_time) values (#{username}, #{password}, #{name}, #{phone}, #{height}, #{weight}, #{age}, #{createTime}, #{updateTime})")
     void register(User user);
 
-    @Select("select * from user where username = #{username}")
+    @Select("select id,username,password from user where username = #{username}")
     User findByUsername(String username);
 
     @Update("update user set name = #{name}, phone = #{phone}, height = #{height}, weight = #{weight}, age = #{age}, update_time = #{updateTime} where username = #{username}")
     void update(User user);
 
-    @Select("select * from user where id = #{id}")
+    @Select("select username, name, phone, height, weight, age from user where id = #{id}")
     User findById(int id);
 
 }

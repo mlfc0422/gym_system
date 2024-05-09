@@ -33,6 +33,7 @@ public class LoginController {
         String password = user.getPassword();
         password = DigestUtils.md5DigestAsHex(password.getBytes());
         User user1 = loginService.userLogin(user.getUsername());
+        log.info("用户登录:{}",user1);
         if (user1 == null) {
             return Rest.error("用户不存在");
         }else if (!user1.getPassword().equals(password)) {

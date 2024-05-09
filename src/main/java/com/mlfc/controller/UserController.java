@@ -27,6 +27,7 @@ public class UserController {
         int id = (int) request.getSession().getAttribute("user");
         log.info("用户查询:{}",id);
         User user = userService.userGet(id);
+        log.info("用户查询结果:{}",user);
         return Rest.success(user);
     }
 }
