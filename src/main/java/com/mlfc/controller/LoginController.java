@@ -1,5 +1,6 @@
 package com.mlfc.controller;
 
+import com.mlfc.common.MyCustomException;
 import com.mlfc.common.Rest;
 import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
@@ -22,7 +23,7 @@ public class LoginController {
     private LoginService loginService;
 
     @PostMapping("/userRegister")
-    public Rest<String> userRegister(@RequestBody User user) {
+    public Rest<String> userRegister(@RequestBody User user) throws MyCustomException {
         log.info("用户注册:{}",user);
         loginService.userRegister(user);
         return Rest.success("注册成功");

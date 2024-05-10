@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler(MyCustomException.class)
     @ResponseBody
     public Rest<Object> handleException(Exception ex) {
         // 记录异常日志

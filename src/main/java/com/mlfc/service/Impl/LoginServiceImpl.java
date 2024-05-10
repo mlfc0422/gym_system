@@ -1,5 +1,6 @@
 package com.mlfc.service.Impl;
 
+import com.mlfc.common.MyCustomException;
 import com.mlfc.common.Rest;
 import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
@@ -19,12 +20,12 @@ public class LoginServiceImpl implements LoginService {
     private RootMapper rootMapper;
 
     @Override
-    public void userRegister(User user) {
+    public void userRegister(User user) throws MyCustomException {
         user.setPassword(DigestUtils.md5DigestAsHex(user.getPassword().getBytes()));
         user.setCreateTime(LocalDateTime.now());
         user.setUpdateTime(LocalDateTime.now());
         if (userMapper.findByUsername(user.getUsername()) != null) {
-            throw new RuntimeException("用户名已存在");
+            throw new MyCustomException("用户名已存在");
         }
         userMapper.register(user);
     }
