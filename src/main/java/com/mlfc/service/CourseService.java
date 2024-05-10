@@ -9,4 +9,6 @@ public interface CourseService {
     List<Course> list();
 
     void reserveCourse(Course course, Integer user_id) throws MyCustomException;
+
+    List<Course> myCourse(Integer userId);
 }

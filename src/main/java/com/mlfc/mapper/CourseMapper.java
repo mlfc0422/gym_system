@@ -23,4 +23,6 @@ public interface CourseMapper {
     @Select("SELECT IFNULL(COUNT(*), 0) FROM personal_timeTable WHERE course_id = #{courseId} AND user_id = #{userId}")
     Boolean isReserved(@Param("courseId") Integer courseId, @Param("userId") Integer userId);
 
+    @Select("select * from personal_timetable where user_id = #{userId}")
+    List<Course> myCourse(Integer userId);
 }

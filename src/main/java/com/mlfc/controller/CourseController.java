@@ -36,4 +36,12 @@ public class CourseController {
         courseService.reserveCourse(course, user_id);
         return Rest.success("预约成功");
     }
+
+    @GetMapping("/myCourse")
+    public Rest<List<Course>> myCourse(HttpServletRequest request) {
+        Integer user_id = (int) request.getSession().getAttribute("user");
+        List<Course> list = courseService.myCourse(user_id);
+        log.info("我的课程:{}",list);
+        return Rest.success(list);
+    }
 }
