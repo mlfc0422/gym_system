@@ -42,7 +42,7 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/userLogin,/userRegister,/rootLogin");
+                .excludePathPatterns("/userLogin", "/userRegister", "/rootLogin");
         log.info("拦截器注册成功");
     }
 }

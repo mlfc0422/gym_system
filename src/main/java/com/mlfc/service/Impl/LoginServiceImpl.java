@@ -9,10 +9,12 @@ import com.mlfc.mapper.UserMapper;
 import com.mlfc.service.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import java.time.LocalDateTime;
 
 @Service
+@Transactional
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
