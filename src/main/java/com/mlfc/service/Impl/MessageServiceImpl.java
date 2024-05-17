@@ -1,5 +1,6 @@
 package com.mlfc.service.Impl;
 
+import com.mlfc.common.MyCustomException;
 import com.mlfc.entity.Message;
 import com.mlfc.entity.User;
 import com.mlfc.mapper.MessageMapper;

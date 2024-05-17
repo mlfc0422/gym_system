@@ -10,11 +10,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler(Exception.class)
+    @ResponseBody
+    public Rest<Object> handleOtherExceptions(Exception ex) {
+        log.error("其他类型异常信息：{}", ex.getMessage());
+        return Rest.error("操作失败");
+    }
+
     @ExceptionHandler(MyCustomException.class)
     @ResponseBody
-    public Rest<Object> handleException(Exception ex) {
-        // 记录异常日志
-        log.info("异常信息：{}", ex.getMessage());
+    public Rest<Object> handleMyCustomException(MyCustomException ex) {
+        log.error("自定义异常信息：{}", ex.getMessage());
         return Rest.error(ex.getMessage());
     }
 }
+
