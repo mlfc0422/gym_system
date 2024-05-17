@@ -12,7 +12,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        log.info("拦截请求：{}", request.getRequestURI());
+        log.info("请求路径：{}", request.getRequestURI());
         HttpSession session = request.getSession();
         if (session.getAttribute("user") == null) {
             log.info("用户未登录，拦截请求：{}", request.getRequestURI());

@@ -39,7 +39,6 @@ public class CourseServiceImpl implements CourseService {
         courseMapper.reserveCourse(course, user_id);
         log.info("更新课程预约人数");
         courseMapper.updateBooked(course.getCourseId());
-        int i =1/0;
     }
 
     @Override
