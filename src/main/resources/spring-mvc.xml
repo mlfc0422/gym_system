@@ -5,15 +5,4 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <context:component-scan base-package="com.mlfc.controller" />
-    <mvc:annotation-driven />
-
-    <mvc:interceptors>
-        <mvc:interceptor>
-            <mvc:mapping path="/**"/> <!-- 拦截所有路径 -->
-            <mvc:exclude-mapping path="/userLogin"/>
-            <mvc:exclude-mapping path="/userRegister"/>
-            <mvc:exclude-mapping path="/rootLogin"/>
-            <bean class="com.mlfc.common.AuthInterceptor"/>
-        </mvc:interceptor>
-    </mvc:interceptors>
 </beans>

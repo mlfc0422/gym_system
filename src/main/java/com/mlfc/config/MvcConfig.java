@@ -4,9 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.mlfc.common.AuthInterceptor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -16,9 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+@Slf4j
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.mlfc.controller")
 public class MvcConfig implements WebMvcConfigurer {
 
     @Override
@@ -38,5 +36,13 @@ public class MvcConfig implements WebMvcConfigurer {
 
         // 将这个转换器添加到传入的 converters 列表中，以便在 Spring MVC 中使用
         converters.add(converter);
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new AuthInterceptor())
+                .addPathPatterns("/**")
+                .excludePathPatterns("/userLogin,/userRegister,/rootLogin");
+        log.info("拦截器注册成功");
     }
 }
