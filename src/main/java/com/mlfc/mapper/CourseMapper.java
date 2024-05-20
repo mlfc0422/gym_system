@@ -25,4 +25,7 @@ public interface CourseMapper {
 
     @Select("select * from personal_timetable where user_id = #{userId}")
     List<Course> myCourse(Integer userId);
+
+    @Select("select IFNULL(COUNT(*), 0) from personal_timetable where user_id = #{userId}")
+    int getReservedCourseCount(Integer userId);
 }

@@ -36,6 +36,10 @@ public class CourseServiceImpl implements CourseService {
             throw new MyCustomException("已经预约过该课程");
         }
         log.info("已过预约判断");
+        int reservedCount = courseMapper.getReservedCourseCount(user_id);
+        if (reservedCount > 7) {
+            throw new MyCustomException("已达最多可预约课程数");
+        }
         courseMapper.reserveCourse(course, user_id);
         log.info("更新课程预约人数");
         courseMapper.updateBooked(course.getCourseId());
