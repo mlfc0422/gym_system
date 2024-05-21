@@ -3,9 +3,11 @@ package com.mlfc.controller;
 import com.mlfc.common.MyCustomException;
 import com.mlfc.common.Rest;
 import com.mlfc.entity.Course;
+import com.mlfc.entity.CourseCount;
 import com.mlfc.entity.User;
 import com.mlfc.service.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.flogger.Flogger;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -42,6 +44,14 @@ public class CourseController {
         Integer user_id = (int) request.getSession().getAttribute("user");
         List<Course> list = courseService.myCourse(user_id);
         log.info("我的课程:{}",list);
+        return Rest.success(list);
+    }
+
+    @GetMapping("/myCourseCount")
+    public Rest<List<CourseCount>> myCourseCount(HttpServletRequest request) {
+        Integer user_id = (int) request.getSession().getAttribute("user");
+        List<CourseCount> list = courseService.myCourseCount(user_id);
+        log.info("我的课程统计:{}",list);
         return Rest.success(list);
     }
 }

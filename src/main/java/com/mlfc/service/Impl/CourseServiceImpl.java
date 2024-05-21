@@ -2,6 +2,7 @@ package com.mlfc.service.Impl;
 
 import com.mlfc.common.MyCustomException;
 import com.mlfc.entity.Course;
+import com.mlfc.entity.CourseCount;
 import com.mlfc.mapper.CourseMapper;
 import com.mlfc.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +38,7 @@ public class CourseServiceImpl implements CourseService {
         }
         log.info("已过预约判断");
         int reservedCount = courseMapper.getReservedCourseCount(user_id);
-        if (reservedCount > 7) {
+        if (reservedCount > 10) {
             throw new MyCustomException("已达最多可预约课程数");
         }
         courseMapper.reserveCourse(course, user_id);
@@ -48,5 +49,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> myCourse(Integer userId) {
         return courseMapper.myCourse(userId);
+    }
+
+    @Override
+    public List<CourseCount> myCourseCount(Integer userId) {
+        return courseMapper.myCourseCount(userId);
     }
 }

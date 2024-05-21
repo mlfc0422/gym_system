@@ -1,6 +1,7 @@
 package com.mlfc.mapper;
 
 import com.mlfc.entity.Course;
+import com.mlfc.entity.CourseCount;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -28,4 +29,7 @@ public interface CourseMapper {
 
     @Select("select IFNULL(COUNT(*), 0) from personal_timetable where user_id = #{userId}")
     int getReservedCourseCount(Integer userId);
+
+    @Select("SELECT course_name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY course_name")
+    List<CourseCount> myCourseCount(Integer userId);
 }
