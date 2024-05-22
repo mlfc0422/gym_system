@@ -54,4 +54,11 @@ public class CourseController {
         log.info("我的课程统计:{}",list);
         return Rest.success(list);
     }
+
+    @GetMapping("/courseCountList")
+    public Rest<List<CourseCount>> courseCountList() {
+        List<CourseCount> list = courseService.CourseCount();
+        log.info("课程统计:{}",list);
+        return Rest.success(list);
+    }
 }

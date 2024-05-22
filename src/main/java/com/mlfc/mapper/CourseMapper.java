@@ -32,4 +32,7 @@ public interface CourseMapper {
 
     @Select("SELECT course_name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY course_name")
     List<CourseCount> myCourseCount(Integer userId);
+
+    @Select("SELECT course_name, SUM(booked) as course_count FROM public_timetable GROUP BY course_name ORDER BY course_count ASC ")
+    List<CourseCount> CourseCount();
 }

@@ -14,4 +14,6 @@ public interface CourseService {
     List<Course> myCourse(Integer userId);
 
     List<CourseCount> myCourseCount(Integer userId);
+
+    List<CourseCount> CourseCount();
 }

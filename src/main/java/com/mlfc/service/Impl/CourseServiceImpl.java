@@ -55,4 +55,9 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseCount> myCourseCount(Integer userId) {
         return courseMapper.myCourseCount(userId);
     }
+
+    @Override
+    public List<CourseCount> CourseCount() {
+        return courseMapper.CourseCount();
+    }
 }
