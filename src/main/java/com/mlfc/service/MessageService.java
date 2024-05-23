@@ -5,7 +5,11 @@ import com.mlfc.entity.Message;
 import java.util.List;
 
 public interface MessageService {
-    List<Message> list();
+    List<Message> userList();
 
     void addMessage(Integer userId, Message message);
+
+    List<Message> rootList();
+
+    Message announcement();
 }

@@ -1,6 +1,5 @@
 package com.mlfc.service.Impl;
 
-import com.mlfc.common.MyCustomException;
 import com.mlfc.entity.Message;
 import com.mlfc.entity.User;
 import com.mlfc.mapper.MessageMapper;
@@ -26,8 +25,8 @@ public class MessageServiceImpl implements MessageService {
     private UserMapper userMapper;
 
     @Override
-    public List<Message> list() {
-        return messageMapper.list();
+    public List<Message> userList() {
+        return messageMapper.userList();
     }
 
     @Override
@@ -37,5 +36,15 @@ public class MessageServiceImpl implements MessageService {
         message.setName(user.getUsername());
         log.info("发送消息:{}",message);
         messageMapper.addMessage(message);
+    }
+
+    @Override
+    public List<Message> rootList() {
+        return messageMapper.rootList();
+    }
+
+    @Override
+    public Message announcement() {
+        return messageMapper.announcement();
     }
 }
