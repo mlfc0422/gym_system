@@ -27,10 +27,10 @@ public class MessageController {
 
 
     @PostMapping("/user")
-    public Rest<String> addMessage(HttpServletRequest request,@RequestBody Message message) {
+    public Rest<String> addUserMessage(HttpServletRequest request, @RequestBody Message message) {
         log.info("发送消息:{}",message);
         Integer user_id = (Integer) request.getSession().getAttribute("user");
-        messageService.addMessage(user_id,message);
+        messageService.addUserMessage(user_id,message);
         return Rest.success("发送成功");
     }
 

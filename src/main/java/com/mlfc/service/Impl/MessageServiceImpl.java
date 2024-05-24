@@ -30,10 +30,11 @@ public class MessageServiceImpl implements MessageService {
     }
 
     @Override
-    public void addMessage(Integer userId, Message message) {
+    public void addUserMessage(Integer userId, Message message) {
         User user = userMapper.findById(userId);
         message.setCreateTime(LocalDateTime.now());
         message.setName(user.getUsername());
+        message.setIdentity(0);
         log.info("发送消息:{}",message);
         messageMapper.addMessage(message);
     }

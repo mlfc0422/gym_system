@@ -11,13 +11,13 @@ import java.util.List;
 public interface MessageMapper {
 
 
-    @Select("select * from message where identity=0")
+    @Select("select * from message where identity=0 order by create_time desc")
     List<Message> userList();
 
-    @Insert("insert into message (name, content, create_time) values (#{name}, #{content}, #{createTime})")
+    @Insert("insert into message(name,content,create_time,identity) values(#{name},#{content},#{createTime},#{identity})")
     void addMessage(Message message);
 
-    @Select("select * from message where identity=1")
+    @Select("select * from message where identity=1 order by create_time desc")
     List<Message> rootList();
 
     @Select("select * from message where identity=1 order by create_time desc limit 1")
