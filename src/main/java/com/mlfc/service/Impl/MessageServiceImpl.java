@@ -1,8 +1,10 @@
 package com.mlfc.service.Impl;
 
 import com.mlfc.entity.Message;
+import com.mlfc.entity.Root;
 import com.mlfc.entity.User;
 import com.mlfc.mapper.MessageMapper;
+import com.mlfc.mapper.RootMapper;
 import com.mlfc.mapper.UserMapper;
 import com.mlfc.service.MessageService;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +25,9 @@ public class MessageServiceImpl implements MessageService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private RootMapper rootMapper;
 
     @Override
     public List<Message> userList() {
@@ -47,5 +52,24 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public Message announcement() {
         return messageMapper.announcement();
+    }
+
+    @Override
+    public void deleteRootMessage(Integer id) {
+        messageMapper.deleteMessage(id);
+    }
+
+    @Override
+    public void addRootMessage(Message message, Integer root_id) {
+        Root root = rootMapper.findById(root_id);
+        message.setName(root.getUsername());
+        message.setCreateTime(LocalDateTime.now());
+        message.setIdentity(1);
+        messageMapper.addMessage(message);
+    }
+
+    @Override
+    public void deleteUserMessage(Integer id) {
+        messageMapper.deleteMessage(id);
     }
 }

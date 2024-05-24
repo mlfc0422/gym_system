@@ -60,7 +60,6 @@ public class LoginController {
         }else if (!root1.getPassword().equals(root.getPassword())) {
             return Rest.error("密码错误");
         }
-        System.out.println(root1.getId());
         request.getSession().setAttribute("root",root1.getId());
         return Rest.success("登录成功");
     }

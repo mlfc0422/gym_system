@@ -14,7 +14,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         log.info("请求路径：{}", request.getRequestURI());
         HttpSession session = request.getSession();
-        if (session.getAttribute("user") == null) {
+        if (session.getAttribute("user") == null && session.getAttribute("root")==null) {
             log.info("用户未登录，拦截请求：{}", request.getRequestURI());
             response.setStatus(401);
             return false;

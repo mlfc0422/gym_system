@@ -61,4 +61,6 @@ public class CourseController {
         log.info("课程统计:{}",list);
         return Rest.success(list);
     }
+
+
 }
