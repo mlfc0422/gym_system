@@ -15,7 +15,7 @@ public interface MessageMapper {
     @Select("select * from message where identity=0 order by create_time desc")
     List<Message> userList();
 
-    @Insert("insert into message(name,content,create_time,identity) values(#{name},#{content},#{createTime},#{identity})")
+    @Insert("insert into message(name,content,create_time,identity,img_path) values(#{name},#{content},#{createTime},#{identity},#{imgPath})")
     void addMessage(Message message);
 
     @Select("select * from message where identity=1 order by create_time desc")

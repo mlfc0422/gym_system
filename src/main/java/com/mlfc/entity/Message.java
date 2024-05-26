@@ -19,4 +19,5 @@ public class Message {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd' T 'HH:mm:ss")
     private LocalDateTime createTime;
     private Integer identity;//0代表用户，1代表管理员
+    private String imgPath;
 }

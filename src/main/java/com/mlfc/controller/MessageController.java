@@ -9,16 +9,24 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/message")
 @Slf4j
 public class MessageController {
 
+
+
     @Autowired
     private MessageService messageService;
+
+    private String basePath = "D:\\JAVA\\IntelliJ IDEA 2023.2\\code\\gym_vue\\src\\assets\\messageImg\\";
 
     @PostMapping("/user")
     public Rest<String> addUserMessage(HttpServletRequest request, @RequestBody Message message) {
@@ -63,5 +71,25 @@ public class MessageController {
     public Rest<String> deleteUserMessage(@PathVariable("id") Integer id) {
         messageService.deleteUserMessage(id);
         return Rest.success("删除成功");
+    }
+
+    @PostMapping("/image")
+    public Rest<String> upload(@RequestParam("image") MultipartFile file) {
+        log.info("上传文件");
+        String originalFilename = file.getOriginalFilename();
+        String substring = originalFilename.substring(originalFilename.lastIndexOf("."));
+        String fileName = UUID.randomUUID() + substring;
+        log.info("文件名:{}",fileName);
+        File fileDir = new File(basePath);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+
+        try {
+            file.transferTo(new File(basePath + fileName));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return Rest.success(fileName);
     }
 }
