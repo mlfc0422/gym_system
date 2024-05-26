@@ -6,7 +6,6 @@ import com.mlfc.entity.Message;
 import com.mlfc.service.MessageService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.ibatis.annotations.Delete;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,7 +21,6 @@ import java.util.UUID;
 public class MessageController {
 
 
-
     @Autowired
     private MessageService messageService;
 
@@ -30,16 +28,16 @@ public class MessageController {
 
     @PostMapping("/user")
     public Rest<String> addUserMessage(HttpServletRequest request, @RequestBody Message message) {
-        log.info("发送消息:{}",message);
+        log.info("发送消息:{}", message);
         Integer user_id = (Integer) request.getSession().getAttribute("user");
-        messageService.addUserMessage(user_id,message);
+        messageService.addUserMessage(user_id, message);
         return Rest.success("发送成功");
     }
 
     @PostMapping("/root")
-    public Rest<String> addRootMessage(@RequestBody Message message,HttpServletRequest request) {
+    public Rest<String> addRootMessage(@RequestBody Message message, HttpServletRequest request) {
         Integer root_id = (Integer) request.getSession().getAttribute("root");
-        messageService.addRootMessage(message,root_id);
+        messageService.addRootMessage(message, root_id);
         return Rest.success("发送成功");
     }
 
@@ -79,7 +77,7 @@ public class MessageController {
         String originalFilename = file.getOriginalFilename();
         String substring = originalFilename.substring(originalFilename.lastIndexOf("."));
         String fileName = UUID.randomUUID() + substring;
-        log.info("文件名:{}",fileName);
+        log.info("文件名:{}", fileName);
         File fileDir = new File(basePath);
         if (!fileDir.exists()) {
             fileDir.mkdirs();
