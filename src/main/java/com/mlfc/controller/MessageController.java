@@ -1,6 +1,5 @@
 package com.mlfc.controller;
 
-
 import com.mlfc.common.Rest;
 import com.mlfc.entity.Message;
 import com.mlfc.service.MessageService;
