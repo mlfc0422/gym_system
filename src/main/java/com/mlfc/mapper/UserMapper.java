@@ -1,10 +1,9 @@
 package com.mlfc.mapper;
 
 import com.mlfc.entity.User;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.annotations.*;
+
+import java.util.List;
 
 @Mapper
 public interface UserMapper {
@@ -20,5 +19,10 @@ public interface UserMapper {
 
     @Select("select username, name, phone, height, weight, age from user where id = #{id}")
     User findById(int id);
+
+    @Select("select id, username, name, phone, height, weight, age, create_time from user")
+    List<User> list();
+
+    void delete(@Param("ids") long[] ids);
 
 }

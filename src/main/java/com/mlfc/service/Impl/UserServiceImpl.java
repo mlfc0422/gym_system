@@ -1,15 +1,17 @@
 package com.mlfc.service.Impl;
 
-import com.mlfc.common.MyCustomException;
 import com.mlfc.entity.User;
 import com.mlfc.mapper.UserMapper;
 import com.mlfc.service.UserService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
+@Slf4j
 @Service
 @Transactional
 public class UserServiceImpl implements UserService {
@@ -26,5 +28,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public User userGet(int id) {
         return userMapper.findById(id);
+    }
+
+    @Override
+    public List<User> list() {
+        return userMapper.list();
+    }
+
+    @Override
+    public void delete(long[] ids) {
+        userMapper.delete(ids);
     }
 }

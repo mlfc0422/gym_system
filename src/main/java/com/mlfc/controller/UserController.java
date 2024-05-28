@@ -8,6 +8,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -29,5 +32,19 @@ public class UserController {
         User user = userService.userGet(id);
         log.info("用户查询结果:{}",user);
         return Rest.success(user);
+    }
+
+    @GetMapping("/list")
+    public Rest<List<User>> list() {
+        List<User> list = userService.list();
+        log.info("用户列表查询结果:{}", list);
+        return Rest.success(list);
+    }
+
+    @DeleteMapping
+    public Rest<String> userDelete(@RequestBody long[] ids) {
+        log.info("删除用户:{}", Arrays.toString(ids));
+        userService.delete(ids);
+        return Rest.success("删除成功");
     }
 }
