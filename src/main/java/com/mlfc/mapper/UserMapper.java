@@ -24,5 +24,4 @@ public interface UserMapper {
     List<User> list();
 
     void delete(@Param("ids") long[] ids);
-
 }
