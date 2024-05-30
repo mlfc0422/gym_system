@@ -13,7 +13,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public Rest<Object> handleOtherExceptions(Exception ex) {
-        log.error("其他类型异常信息：{}", ex.getMessage());
+        log.error("其他类型异常信息：{}", ex);
         return Rest.error("操作失败");
     }
 

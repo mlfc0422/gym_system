@@ -2,6 +2,7 @@
 <project version="4">
   <component name="SqlDialectMappings">
     <file url="file://$PROJECT_DIR$/src/main/java/com/mlfc/mapper/CourseMapper.java" dialect="MySQL" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/mlfc/mapper/FacilityMapper.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/mlfc/mapper/MessageMapper.java" dialect="MySQL" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/mlfc/mapper/UserMapper.java" dialect="MySQL" />
   </component>
