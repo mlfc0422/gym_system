@@ -28,12 +28,12 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void reserveCourse(Course course, Integer user_id) throws MyCustomException {
-        if (Objects.equals(course.getBooked(), course.getTotal())){
+        if (Objects.equals(course.getBooked(), course.getTotal())) {
             throw new MyCustomException("课程已满");
         }
         log.info("已过课程满员判断");
         //判断是否已经预约
-        if (courseMapper.isReserved(course.getCourseId(), user_id)){
+        if (courseMapper.isReserved(course.getId(), user_id)) {
             throw new MyCustomException("已经预约过该课程");
         }
         log.info("已过预约判断");
@@ -43,7 +43,7 @@ public class CourseServiceImpl implements CourseService {
         }
         courseMapper.reserveCourse(course, user_id);
         log.info("更新课程预约人数");
-        courseMapper.updateBooked(course.getCourseId());
+        courseMapper.updateBooked(course.getId());
     }
 
     @Override
@@ -60,4 +60,16 @@ public class CourseServiceImpl implements CourseService {
     public List<CourseCount> CourseCount() {
         return courseMapper.CourseCount();
     }
+
+    @Override
+    public void addCourse(Course course) {
+        courseMapper.addCourse(course);
+    }
+
+    @Override
+    public void deleteCourse(long[] ids) {
+        courseMapper.delete(ids);
+    }
+
+
 }

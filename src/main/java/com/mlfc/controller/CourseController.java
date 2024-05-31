@@ -27,7 +27,7 @@ public class CourseController {
         return Rest.success(list);
     }
 
-    @PutMapping("/reserve")
+    @PostMapping("/reserve")
     public Rest<String> reserveCourse(@RequestBody Course course, HttpServletRequest request) throws MyCustomException {
         log.info("预约课程:{}", course);
         Integer user_id = (int) request.getSession().getAttribute("user");
@@ -59,5 +59,25 @@ public class CourseController {
         return Rest.success(list);
     }
 
+    // 添加课程
+    @PostMapping()
+    public Rest<String> addCourse(@RequestBody Course course) {
+        log.info("添加课程:{}", course);
+        courseService.addCourse(course);
+        return Rest.success("添加课程成功");
+    }
 
+//    @PutMapping()
+//    public Rest<String> updateCourse(@RequestBody Course course) {
+//        log.info("更新课程:{}",course);
+//        courseService.updateCourse(course);
+//        return Rest.success("更新课程成功");
+//    }
+
+    @DeleteMapping()
+    public Rest<String> deleteCourse(@RequestBody long[] ids) {
+        log.info("删除课程:{}", ids);
+        courseService.deleteCourse(ids);
+        return Rest.success("删除课程成功");
+    }
 }

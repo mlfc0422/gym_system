@@ -16,4 +16,8 @@ public interface CourseService {
     List<CourseCount> myCourseCount(Integer userId);
 
     List<CourseCount> CourseCount();
+
+    void addCourse(Course course);
+
+    void deleteCourse(long[] ids);
 }

@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
 import java.sql.Time;
 
 @Data
@@ -11,8 +12,8 @@ import java.sql.Time;
 @NoArgsConstructor
 @ToString
 public class Course {
-    private Integer courseId;
-    private String courseName;
+    private Integer id;
+    private String name;
     private String week;
     private Time time;
     private String classroom;

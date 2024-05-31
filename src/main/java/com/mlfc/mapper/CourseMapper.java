@@ -17,8 +17,7 @@ public interface CourseMapper {
     void reserveCourse(@Param("course") Course course, @Param("user_id") Integer user_id);
 
 
-
-    @Update("update public_timetable set booked = booked + 1 where course_id = #{courseId}")
+    @Update("update public_timetable set booked = booked + 1 where id = #{courseId}")
     void updateBooked(Integer courseId);
 
     @Select("SELECT IFNULL(COUNT(*), 0) FROM personal_timeTable WHERE course_id = #{courseId} AND user_id = #{userId}")
@@ -33,6 +32,13 @@ public interface CourseMapper {
     @Select("SELECT course_name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY course_name")
     List<CourseCount> myCourseCount(Integer userId);
 
-    @Select("SELECT course_name, SUM(booked) as course_count FROM public_timetable GROUP BY course_name ORDER BY course_count ASC ")
+    @Select("SELECT name, SUM(booked) as course_count FROM public_timetable GROUP BY name ORDER BY course_count ")
     List<CourseCount> CourseCount();
+
+    @Insert("insert into public_timetable (name, teacher_name, classroom, week, time, total, booked,teacher_id) " +
+            "values (#{name}, #{teacherName}, #{classroom}, #{week}, #{time}, #{total}, 0, #{teacherId})")
+    void addCourse(Course course);
+
+    void delete(@Param("ids") long[] ids);
+
 }
