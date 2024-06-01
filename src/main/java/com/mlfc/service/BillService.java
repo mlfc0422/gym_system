@@ -6,4 +6,8 @@ import java.util.List;
 
 public interface BillService {
     List<Bill> list();
+
+    void addBill(Bill bill, int root_id);
+
+    void updateBill(Bill bill);
 }
