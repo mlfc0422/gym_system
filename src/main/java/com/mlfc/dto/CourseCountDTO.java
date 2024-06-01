@@ -1,10 +1,10 @@
-package com.mlfc.entity;
+package com.mlfc.dto;
 
 
 import lombok.Data;
 
 @Data
-public class CourseCount {
+public class CourseCountDTO {
     private String courseName;
     private int courseCount;
 }

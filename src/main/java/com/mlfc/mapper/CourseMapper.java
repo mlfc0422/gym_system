@@ -1,7 +1,7 @@
 package com.mlfc.mapper;
 
+import com.mlfc.dto.CourseCountDTO;
 import com.mlfc.entity.Course;
-import com.mlfc.entity.CourseCount;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
@@ -30,15 +30,34 @@ public interface CourseMapper {
     int getReservedCourseCount(Integer userId);
 
     @Select("SELECT course_name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY course_name")
-    List<CourseCount> myCourseCount(Integer userId);
+    List<CourseCountDTO> myCourseCount(Integer userId);
 
     @Select("SELECT name, SUM(booked) as course_count FROM public_timetable GROUP BY name ORDER BY course_count ")
-    List<CourseCount> CourseCount();
+    List<CourseCountDTO> CourseCount();
 
     @Insert("insert into public_timetable (name, teacher_name, classroom, week, time, total, booked,teacher_id) " +
             "values (#{name}, #{teacherName}, #{classroom}, #{week}, #{time}, #{total}, 0, #{teacherId})")
     void addCourse(Course course);
 
-    void delete(@Param("ids") long[] ids);
 
+    @Select("SELECT EXISTS(SELECT 1 FROM public_timetable WHERE week = #{week} AND time = #{time} AND teacher_id = #{teacherId})")
+    boolean isCourseExistByTeacher(Course course);
+
+    @Select("SELECT EXISTS(SELECT 1 FROM public_timetable WHERE week = #{week} AND time = #{time} AND classroom = #{classroom})")
+    boolean isCourseExistByClassroom(Course course);
+
+    @Select("SELECT teacher_name FROM public_timetable WHERE teacher_id = #{teacherId} limit 1")
+    String getTeacherName(Integer teacherId);
+
+
+    @Update("update public_timetable set name = #{name}, teacher_name = #{teacherName}, classroom = #{classroom}, week = #{week}, time = #{time}, total = #{total}, teacher_id = #{teacherId} where id = #{id}")
+    void updatePublicCourse(Course course);
+
+    @Update("update personal_timetable set course_name = #{name}, teacher_name = #{teacherName}, classroom = #{classroom}, week = #{week}, time = #{time} where course_id = #{id}")
+    void updatePersonalCourse(Course course);
+
+
+    void deletePublic(@Param("ids") long[] ids);
+
+    void deletePersonal(@Param("ids") long[] ids);
 }

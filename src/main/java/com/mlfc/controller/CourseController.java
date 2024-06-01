@@ -2,8 +2,8 @@ package com.mlfc.controller;
 
 import com.mlfc.common.MyCustomException;
 import com.mlfc.common.Rest;
+import com.mlfc.dto.CourseCountDTO;
 import com.mlfc.entity.Course;
-import com.mlfc.entity.CourseCount;
 import com.mlfc.service.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
@@ -45,34 +45,34 @@ public class CourseController {
     }
 
     @GetMapping("/myCourseCount")
-    public Rest<List<CourseCount>> myCourseCount(HttpServletRequest request) {
+    public Rest<List<CourseCountDTO>> myCourseCount(HttpServletRequest request) {
         Integer user_id = (int) request.getSession().getAttribute("user");
-        List<CourseCount> list = courseService.myCourseCount(user_id);
+        List<CourseCountDTO> list = courseService.myCourseCount(user_id);
         log.info("我的课程统计:{}", list);
         return Rest.success(list);
     }
 
     @GetMapping("/courseCountList")
-    public Rest<List<CourseCount>> courseCountList() {
-        List<CourseCount> list = courseService.CourseCount();
+    public Rest<List<CourseCountDTO>> courseCountList() {
+        List<CourseCountDTO> list = courseService.CourseCount();
         log.info("课程统计:{}", list);
         return Rest.success(list);
     }
 
     // 添加课程
     @PostMapping()
-    public Rest<String> addCourse(@RequestBody Course course) {
+    public Rest<String> addCourse(@RequestBody Course course) throws MyCustomException {
         log.info("添加课程:{}", course);
         courseService.addCourse(course);
         return Rest.success("添加课程成功");
     }
 
-//    @PutMapping()
-//    public Rest<String> updateCourse(@RequestBody Course course) {
-//        log.info("更新课程:{}",course);
-//        courseService.updateCourse(course);
-//        return Rest.success("更新课程成功");
-//    }
+    @PutMapping()
+    public Rest<String> updateCourse(@RequestBody Course course) throws MyCustomException {
+        log.info("更新课程:{}", course);
+        courseService.updateCourse(course);
+        return Rest.success("更新课程成功");
+    }
 
     @DeleteMapping()
     public Rest<String> deleteCourse(@RequestBody long[] ids) {

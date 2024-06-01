@@ -1,8 +1,8 @@
 package com.mlfc.service;
 
 import com.mlfc.common.MyCustomException;
+import com.mlfc.dto.CourseCountDTO;
 import com.mlfc.entity.Course;
-import com.mlfc.entity.CourseCount;
 
 import java.util.List;
 
@@ -13,11 +13,13 @@ public interface CourseService {
 
     List<Course> myCourse(Integer userId);
 
-    List<CourseCount> myCourseCount(Integer userId);
+    List<CourseCountDTO> myCourseCount(Integer userId);
 
-    List<CourseCount> CourseCount();
+    List<CourseCountDTO> CourseCount();
 
-    void addCourse(Course course);
+    void addCourse(Course course) throws MyCustomException;
 
     void deleteCourse(long[] ids);
+
+    void updateCourse(Course course) throws MyCustomException;
 }

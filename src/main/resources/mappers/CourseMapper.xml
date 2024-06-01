@@ -1,11 +1,20 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mlfc.mapper.CourseMapper">
-    <delete id="delete" parameterType="long[]">
+    <delete id="deletePublic" parameterType="long[]">
         DELETE FROM public_timetable
         WHERE id IN
         <foreach item="id" collection="ids" open="(" separator="," close=")">
             #{id}
+        </foreach>;
+    </delete>
+
+    <delete id="deletePersonal" parameterType="long[]">
+        DELETE FROM personal_timetable
+        WHERE course_id IN
+        <foreach item="id" collection="ids" open="(" separator="," close=")">
+            #{id}
         </foreach>
     </delete>
+
 </mapper>

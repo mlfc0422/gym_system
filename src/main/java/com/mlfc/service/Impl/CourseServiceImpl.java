@@ -1,8 +1,8 @@
 package com.mlfc.service.Impl;
 
 import com.mlfc.common.MyCustomException;
+import com.mlfc.dto.CourseCountDTO;
 import com.mlfc.entity.Course;
-import com.mlfc.entity.CourseCount;
 import com.mlfc.mapper.CourseMapper;
 import com.mlfc.service.CourseService;
 import lombok.extern.slf4j.Slf4j;
@@ -52,24 +52,48 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<CourseCount> myCourseCount(Integer userId) {
+    public List<CourseCountDTO> myCourseCount(Integer userId) {
         return courseMapper.myCourseCount(userId);
     }
 
     @Override
-    public List<CourseCount> CourseCount() {
+    public List<CourseCountDTO> CourseCount() {
         return courseMapper.CourseCount();
     }
 
     @Override
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws MyCustomException {
+        if (courseMapper.isCourseExistByClassroom(course)) {
+            throw new MyCustomException("该教室此时间有课");
+        }
+        if (courseMapper.isCourseExistByTeacher(course)) {
+            throw new MyCustomException("该老师此时间有课");
+        }
+        //todo 检验教师id是否正确，如果不正确抛出异常
+        String teacher_name = courseMapper.getTeacherName(course.getTeacherId());
+        course.setTeacherName(teacher_name);
         courseMapper.addCourse(course);
     }
 
     @Override
     public void deleteCourse(long[] ids) {
-        courseMapper.delete(ids);
+        courseMapper.deletePublic(ids);
+        courseMapper.deletePersonal(ids);
     }
 
+    @Override
+    public void updateCourse(Course course) throws MyCustomException {
+        if (courseMapper.isCourseExistByClassroom(course)) {
+            throw new MyCustomException("该教室此时间有课");
+        }
+        if (courseMapper.isCourseExistByTeacher(course)) {
+            throw new MyCustomException("该老师此时间有课");
+        }
+        //todo 检验教师id是否正确，如果不正确抛出异常
+        String teacher_name = courseMapper.getTeacherName(course.getTeacherId());
+        course.setTeacherName(teacher_name);
+        courseMapper.updatePublicCourse(course);
+        courseMapper.updatePersonalCourse(course);
+    }
 
 }
