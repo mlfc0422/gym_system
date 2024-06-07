@@ -80,4 +80,10 @@ public class CourseController {
         courseService.deleteCourse(ids);
         return Rest.success("删除课程成功");
     }
+
+    @DeleteMapping("/clear")
+    public Rest<String> clear() {
+        courseService.clear();
+        return Rest.success("重置成功");
+    }
 }

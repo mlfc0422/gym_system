@@ -96,4 +96,10 @@ public class CourseServiceImpl implements CourseService {
         courseMapper.updatePersonalCourse(course);
     }
 
+    @Override
+    public void clear() {
+        courseMapper.clearBooked();
+        courseMapper.clearPersonal();
+    }
+
 }

@@ -12,8 +12,8 @@ public interface CourseMapper {
     @Select("select * from public_timetable")
     List<Course> list();
 
-    @Insert("insert into personal_timeTable (course_id, course_name, teacher_name, classroom, week, time, user_id) " +
-            "values (#{course.courseId}, #{course.courseName}, #{course.teacherName}, #{course.classroom}, #{course.week}, #{course.time}, #{user_id})")
+    @Insert("insert into personal_timetable (course_id, course_name, teacher_name, classroom, week, time, user_id) " +
+            "values (#{course.id}, #{course.name}, #{course.teacherName}, #{course.classroom}, #{course.week}, #{course.time}, #{user_id})")
     void reserveCourse(@Param("course") Course course, @Param("user_id") Integer user_id);
 
 
@@ -60,4 +60,11 @@ public interface CourseMapper {
     void deletePublic(@Param("ids") long[] ids);
 
     void deletePersonal(@Param("ids") long[] ids);
+
+    @Update("update public_timetable set booked = 0")
+    void clearBooked();
+
+    @Delete("delete from personal_timetable")
+    void clearPersonal();
+
 }

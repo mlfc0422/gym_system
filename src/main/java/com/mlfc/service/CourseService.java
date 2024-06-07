@@ -22,4 +22,8 @@ public interface CourseService {
     void deleteCourse(long[] ids);
 
     void updateCourse(Course course) throws MyCustomException;
+
+    void clear();
+
+
 }
