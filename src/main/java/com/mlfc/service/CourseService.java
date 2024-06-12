@@ -2,6 +2,7 @@ package com.mlfc.service;
 
 import com.mlfc.common.MyCustomException;
 import com.mlfc.dto.CourseCountDTO;
+import com.mlfc.dto.TimeCountDTO;
 import com.mlfc.entity.Course;
 
 import java.util.List;
@@ -26,4 +27,5 @@ public interface CourseService {
     void clear();
 
 
+    List<TimeCountDTO> timeCount();
 }

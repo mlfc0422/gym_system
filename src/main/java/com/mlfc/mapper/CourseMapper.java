@@ -1,6 +1,7 @@
 package com.mlfc.mapper;
 
 import com.mlfc.dto.CourseCountDTO;
+import com.mlfc.dto.TimeCountDTO;
 import com.mlfc.entity.Course;
 import org.apache.ibatis.annotations.*;
 
@@ -12,7 +13,7 @@ public interface CourseMapper {
     @Select("select * from public_timetable")
     List<Course> list();
 
-    @Insert("insert into personal_timetable (course_id, course_name, teacher_name, classroom, week, time, user_id) " +
+    @Insert("insert into personal_timetable (course_id, name, teacher_name, classroom, week, time, user_id) " +
             "values (#{course.id}, #{course.name}, #{course.teacherName}, #{course.classroom}, #{course.week}, #{course.time}, #{user_id})")
     void reserveCourse(@Param("course") Course course, @Param("user_id") Integer user_id);
 
@@ -29,10 +30,10 @@ public interface CourseMapper {
     @Select("select IFNULL(COUNT(*), 0) from personal_timetable where user_id = #{userId}")
     int getReservedCourseCount(Integer userId);
 
-    @Select("SELECT course_name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY course_name")
+    @Select("SELECT name, COUNT(*) as course_count FROM personal_timetable WHERE user_id = #{userId} GROUP BY name")
     List<CourseCountDTO> myCourseCount(Integer userId);
 
-    @Select("SELECT name, SUM(booked) as course_count FROM public_timetable GROUP BY name ORDER BY course_count ")
+    @Select("SELECT name, teacher_name, SUM(booked) as course_count FROM public_timetable GROUP BY name,teacher_name ORDER BY course_count DESC")
     List<CourseCountDTO> CourseCount();
 
     @Insert("insert into public_timetable (name, teacher_name, classroom, week, time, total, booked,teacher_id) " +
@@ -53,7 +54,7 @@ public interface CourseMapper {
     @Update("update public_timetable set name = #{name}, teacher_name = #{teacherName}, classroom = #{classroom}, week = #{week}, time = #{time}, total = #{total}, teacher_id = #{teacherId} where id = #{id}")
     void updatePublicCourse(Course course);
 
-    @Update("update personal_timetable set course_name = #{name}, teacher_name = #{teacherName}, classroom = #{classroom}, week = #{week}, time = #{time} where course_id = #{id}")
+    @Update("update personal_timetable set name = #{name}, teacher_name = #{teacherName}, classroom = #{classroom}, week = #{week}, time = #{time} where course_id = #{id}")
     void updatePersonalCourse(Course course);
 
 
@@ -66,5 +67,9 @@ public interface CourseMapper {
 
     @Delete("delete from personal_timetable")
     void clearPersonal();
+
+    @Select("SELECT time, SUM(booked) AS course_count FROM public_timetable GROUP BY time ORDER BY course_count DESC")
+    List<TimeCountDTO> timeCount();
+
 
 }

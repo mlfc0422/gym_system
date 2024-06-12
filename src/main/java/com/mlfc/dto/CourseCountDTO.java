@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class CourseCountDTO {
-    private String courseName;
+    private String name;
     private int courseCount;
+    private String teacherName;
 }

@@ -3,6 +3,7 @@ package com.mlfc.controller;
 import com.mlfc.common.MyCustomException;
 import com.mlfc.common.Rest;
 import com.mlfc.dto.CourseCountDTO;
+import com.mlfc.dto.TimeCountDTO;
 import com.mlfc.entity.Course;
 import com.mlfc.service.CourseService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -85,5 +86,12 @@ public class CourseController {
     public Rest<String> clear() {
         courseService.clear();
         return Rest.success("重置成功");
+    }
+
+    @GetMapping("/timeCount")
+    public Rest<List<TimeCountDTO>> timeCount() {
+        List<TimeCountDTO> list = courseService.timeCount();
+        log.info("时间统计:{}", list);
+        return Rest.success(list);
     }
 }

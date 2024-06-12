@@ -2,6 +2,7 @@ package com.mlfc.service.Impl;
 
 import com.mlfc.common.MyCustomException;
 import com.mlfc.dto.CourseCountDTO;
+import com.mlfc.dto.TimeCountDTO;
 import com.mlfc.entity.Course;
 import com.mlfc.mapper.CourseMapper;
 import com.mlfc.service.CourseService;
@@ -101,5 +102,11 @@ public class CourseServiceImpl implements CourseService {
         courseMapper.clearBooked();
         courseMapper.clearPersonal();
     }
+
+    @Override
+    public List<TimeCountDTO> timeCount() {
+        return courseMapper.timeCount();
+    }
+
 
 }
